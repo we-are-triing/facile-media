@@ -1,0 +1,16 @@
+version: '3'
+services:
+  media:
+    build: .
+    restart: always
+    ports:
+      - '8002:8002'
+    volumes:
+      - .:/home/node/app
+      - .:/home/media
+    networks:
+      - facile
+networks:
+  facile:
+    external:
+      name: facile

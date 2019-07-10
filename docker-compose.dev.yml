@@ -1,0 +1,16 @@
+version: '3'
+services:
+  api:
+    build: .
+    ports:
+      - '8002:8002'
+      - '9002:9002'
+    volumes:
+      - .:/home/node/app
+    entrypoint: 'npm run dev'
+    networks:
+      - facile
+networks:
+  facile:
+    external:
+      name: facile
