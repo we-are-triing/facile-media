@@ -7,7 +7,7 @@ services:
       - '8002:8002'
     volumes:
       - .:/home/node/app
-      - .:/home/media
+      - ./media:/home/node/app/media
     networks:
       - facile
 networks:

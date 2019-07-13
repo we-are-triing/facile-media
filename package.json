@@ -19,7 +19,7 @@
   },
   "scripts": {
     "start": "node --experimental-modules server/index.js",
-    "dev": "NODE_ENV=dev nodemon --inspect=0.0.0.0:9001 --experimental-modules server/index.js"
+    "dev": "NODE_ENV=dev nodemon --inspect=0.0.0.0:9002 --experimental-modules server/index.js"
   },
   "dependencies": {
     "@hapi/boom": "^7.4.2",

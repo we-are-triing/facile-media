@@ -1,12 +1,13 @@
 version: '3'
 services:
-  api:
+  media:
     build: .
     ports:
       - '8002:8002'
       - '9002:9002'
     volumes:
       - .:/home/node/app
+      - ./media:/home/node/app/media
     entrypoint: 'npm run dev'
     networks:
       - facile

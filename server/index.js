@@ -2,7 +2,7 @@ import Hapi from '@hapi/hapi';
 import Inert from '@hapi/inert';
 import Vision from '@hapi/vision';
 import HapiSwagger from 'hapi-swagger';
-import routes from './parts/routes.js';
+import routes from './routes.js';
 import pj from './pj.cjs';
 
 //Keeping these in as a reference to support http2
