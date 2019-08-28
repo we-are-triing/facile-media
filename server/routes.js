@@ -65,27 +65,6 @@ export default server => {
       }
     },
     {
-      method: `GET`,
-      path: `/api/{filename}`,
-      options: {
-        description: `get modified images`,
-        notes: `get images that can be modified.`,
-        tags: [`api`, `media`],
-        validate: {
-          params: filenameValidation
-        }
-      },
-      handler: async (req, h) => {
-        try {
-          //const raw = await fetch(`${dataDomain}/content/component/${type}`);
-          //const [component] = await raw.json();
-        } catch (err) {
-          console.error(``, err);
-          return boom.badImplementation(`something done broke`);
-        }
-      }
-    },
-    {
       method: `POST`,
       path: `/media`,
       options: {
