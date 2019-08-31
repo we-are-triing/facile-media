@@ -20,6 +20,17 @@ const server = Hapi.server({
   routes: {
     cors: {
       origin: ['http://localhost:8000']
+    },
+    validate: {
+      failAction: async (request, h, err) => {
+        if (process.env.NODE_ENV === 'production') {
+          console.error('ValidationError:', err.message);
+          throw Boom.badRequest(`Invalid request payload input`);
+        } else {
+          console.error(err);
+          throw err;
+        }
+      }
     }
   }
 });

@@ -5,9 +5,11 @@ import fetch from 'node-fetch';
 import boom from '@hapi/boom';
 import random from './utils/random.js';
 
+const nameReg = /[a-zA-Z0-9 _\-]+/;
+
 const nameValidation = joi
   .string()
-  .regex(/[a-zA-Z0-9 _.-]/)
+  .regex(nameReg)
   .required();
 
 const mediaValidation = joi.object({
@@ -80,7 +82,6 @@ export default server => {
       },
       handler: async (req, h) => {
         try {
-          // TODO: random generation
           const {tags, name, media, meta} = req.payload;
           const filename = `${random(15)}.${getExt(meta.type)}`;
           const master = 'self';
@@ -99,7 +100,46 @@ export default server => {
 
           // TODO: do a better media base URL system.
           return {
-            path: `http://localhost:8002/${filename}`
+            path: `http://localhost:8002/${filename}`,
+            filename
+          };
+        } catch (err) {
+          console.error(``, err);
+          return boom.badImplementation(`something done broke`);
+        }
+      }
+    },
+    {
+      method: `DELETE`,
+      path: `/media`,
+      options: {
+        description: `Deletes media`,
+        notes: `This will delete the media item, and send the request to delete the data from the store. It has an optional param to delete the data also, default is true`,
+        tags: [`api`, `media`],
+        validate: {
+          payload: filenameValidation
+        }
+      },
+      handler: async (req, h) => {
+        try {
+          const {filename, deleteData = true} = req.payload;
+          try {
+            await promises.unlink(join(`./media`, `${filename}`));
+          } catch (err) {
+            console.error(err);
+          }
+
+          if (deleteData) {
+            // TODO: do a better media base URL system.
+            await fetch(`${dataDomain}/media`, {
+              headers: {'Content-Type': 'application/json'},
+              method: 'DELETE',
+              body: JSON.stringify({filename})
+            });
+          }
+
+          return {
+            message: `deleted ${filename}`
           };
         } catch (err) {
           console.error(``, err);
