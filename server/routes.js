@@ -28,7 +28,7 @@ const filenameValidation = {
   filename: nameValidation
 };
 
-const dataDomain = `http://api:8001`;
+const dataDomain = `http://api:24041`;
 
 const getExt = type => {
   switch (type) {
@@ -100,7 +100,7 @@ export default server => {
 
           // TODO: do a better media base URL system.
           return {
-            path: `http://localhost:8002/${filename}`,
+            path: `http://localhost:24042/${filename}`,
             filename
           };
         } catch (err) {

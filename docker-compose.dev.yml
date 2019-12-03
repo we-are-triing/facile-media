@@ -3,8 +3,8 @@ services:
   media:
     build: .
     ports:
-      - '8002:8002'
-      - '9002:9002'
+      - '24042:24042'
+      - '24052:24052'
     volumes:
       - .:/home/node/app
       - ./media:/home/node/app/media
