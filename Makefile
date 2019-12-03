@@ -10,10 +10,10 @@ dev:
 	docker-compose -f docker-compose.dev.yml up
 
 build:
-	docker build -t lucestudio/facile-media:v$(v) .
+	docker build -t lucestudio/facile-media:v$(v) -t lucestudio/facile-media:latest .
 
 push:
-	docker push lucestudio/facile-media:v$(v)
+	docker push lucestudio/facile-media
 
 docker:
-	make build v=$(v) && make push v=$(v)
+	make build v=$(v) && make push
