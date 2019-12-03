@@ -6,8 +6,8 @@ services:
     ports:
       - '24042:24042'
     volumes:
-      - .:/home/node/app
-      - ./media:/home/node/app/media
+      - .:/home/node/media
+      - ./media:/home/node/media/media
     networks:
       - facile
 networks:

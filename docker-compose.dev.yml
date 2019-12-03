@@ -6,8 +6,8 @@ services:
       - '24042:24042'
       - '24052:24052'
     volumes:
-      - .:/home/node/app
-      - ./media:/home/node/app/media
+      - .:/home/node/media
+      - ./media:/home/node/media/media
     entrypoint: 'npm run dev'
     networks:
       - facile
