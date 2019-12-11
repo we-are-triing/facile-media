@@ -3,11 +3,25 @@ network:
 
 prod:
 	make network
-	docker-compose up
+	docker build -t facile-media .
+	docker run \
+		--restart=unless-stopped \
+		--network=facile \
+		--name=media \
+		-p 24042:24042 \
+		facile-media
 
 dev:
 	make network
-	docker-compose -f docker-compose.dev.yml up
+	docker build -t facile-media .
+	docker run \
+		--restart=unless-stopped \
+		--network=facile \
+		--name=media \
+		-p 24042:24042 \
+		-p 24052:24052 \
+		--entrypoint=npm \
+		facile-media run dev
 
 build:
 	docker build -t lucestudio/facile-media:v$(v) -t lucestudio/facile-media:latest .
