@@ -19,7 +19,7 @@ network:
 prod:
 	make network
 	docker build -t facile-media .
-	docker run \
+	docker run -d \
 		--restart=unless-stopped \
 		--network=facile \
 		--name=media \
@@ -37,7 +37,7 @@ dev:
 		-p 24042:24042 \
 		-p 24052:24052 \
 		--entrypoint=npm \
-		--mount type=bind,source="$(CURDIR)"/,target=/home/node/cms \
+		--mount type=bind,source="$(CURDIR)"/,target=/home/node/media \
 		facile-media run dev
 
 build:
