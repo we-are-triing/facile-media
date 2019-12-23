@@ -1,0 +1,18 @@
+version: '3'
+services:
+  media:
+    build: .
+    restart: unless-stopped
+    ports:
+      - '24042:24042'
+      - '24052:24052'
+    volumes:
+      - .:/home/node/media
+      - ./media:/home/node/media/media
+    entrypoint: 'npm run dev'
+    networks:
+      - facile
+networks:
+  facile:
+    external:
+      name: facile
