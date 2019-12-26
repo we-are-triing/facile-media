@@ -7,6 +7,8 @@ USER node
 RUN npm install
 COPY --chown=node:node . .
 
+VOLUME /home/node/media
+
 EXPOSE 24042
 
 CMD [ "npm", "start" ]

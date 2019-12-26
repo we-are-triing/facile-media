@@ -1,6 +1,6 @@
 {
   "name": "facile-media",
-  "version": "1.0.0-alpha.9",
+  "version": "1.0.0-alpha.10",
   "description": "Media hub for facile studio",
   "main": "server/index.js",
   "repository": {
