@@ -92,7 +92,7 @@ export default server => {
           await promises.writeFile(join(`./media`, `${filename}`), buf);
           const body = JSON.stringify({tags, name, filename, meta, master});
 
-          const raw = await fetch(`${dataDomain}/media`, {
+          await fetch(`${dataDomain}/media`, {
             headers: {'Content-Type': 'application/json'},
             method: 'POST',
             body
@@ -165,7 +165,7 @@ export default server => {
   - modifications
     - crop (image)
       - at aspect ratio
-      - at size 
+      - at size
       - at subject
     - resize
 - get random image
