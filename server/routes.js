@@ -62,7 +62,7 @@ export default server => {
       path: `/{param*}`,
       handler: {
         directory: {
-          path: './media'
+          path: '/facile/media'
         }
       }
     },

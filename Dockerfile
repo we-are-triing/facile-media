@@ -1,6 +1,8 @@
 FROM node:12-alpine
 RUN mkdir -p /home/node/media/node_modules && chown -R node:node /home/node/media
-RUN mkdir -p /facile/media
+RUN mkdir -p /home/node/media/media
+RUN mkdir -p /facile/media && chown -R node:node /facile/media
+
 
 WORKDIR /home/node/media
 COPY package*.json ./
