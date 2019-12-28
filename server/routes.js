@@ -89,7 +89,7 @@ export default server => {
           const sm = media64.split(',')[1];
           const buf = Buffer.from(sm, 'base64');
 
-          await promises.writeFile(join(`./media`, `${filename}`), buf);
+          await promises.writeFile(join(`/facile/media`, `${filename}`), buf);
           const body = JSON.stringify({tags, name, filename, meta, master});
 
           await fetch(`${dataDomain}/media`, {
@@ -124,7 +124,7 @@ export default server => {
         try {
           const {filename, deleteData = true} = req.payload;
           try {
-            await promises.unlink(join(`./media`, `${filename}`));
+            await promises.unlink(join(`/facile/media`, `${filename}`));
           } catch (err) {
             console.error(err);
           }
