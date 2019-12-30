@@ -98,9 +98,8 @@ export default server => {
             body
           });
 
-          // TODO: do a better media base URL system.
           return {
-            path: `http://localhost:24042/${filename}`,
+            path: `${process.env.MEDIA_URL}/${filename}`,
             filename
           };
         } catch (err) {
@@ -130,7 +129,6 @@ export default server => {
           }
 
           if (deleteData) {
-            // TODO: do a better media base URL system.
             await fetch(`${dataDomain}/media`, {
               headers: {'Content-Type': 'application/json'},
               method: 'DELETE',

@@ -9,7 +9,7 @@ services:
     volumes:
       - .:/home/node/media
       - ./media:/facile/media
-    entrypoint: 'npm run dev'
+    entrypoint: 'npm run local'
     networks:
       - facile
 networks:
