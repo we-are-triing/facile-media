@@ -62,7 +62,7 @@ export default server => {
       path: `/{param*}`,
       handler: {
         directory: {
-          path: './media'
+          path: '/facile/media'
         }
       }
     },
@@ -89,18 +89,17 @@ export default server => {
           const sm = media64.split(',')[1];
           const buf = Buffer.from(sm, 'base64');
 
-          await promises.writeFile(join(`./media`, `${filename}`), buf);
+          await promises.writeFile(join(`/facile/media`, `${filename}`), buf);
           const body = JSON.stringify({tags, name, filename, meta, master});
 
-          const raw = await fetch(`${dataDomain}/media`, {
+          await fetch(`${dataDomain}/media`, {
             headers: {'Content-Type': 'application/json'},
             method: 'POST',
             body
           });
 
-          // TODO: do a better media base URL system.
           return {
-            path: `http://localhost:24042/${filename}`,
+            path: `http://media:24042/${filename}`,
             filename
           };
         } catch (err) {
@@ -124,13 +123,12 @@ export default server => {
         try {
           const {filename, deleteData = true} = req.payload;
           try {
-            await promises.unlink(join(`./media`, `${filename}`));
+            await promises.unlink(join(`/facile/media`, `${filename}`));
           } catch (err) {
             console.error(err);
           }
 
           if (deleteData) {
-            // TODO: do a better media base URL system.
             await fetch(`${dataDomain}/media`, {
               headers: {'Content-Type': 'application/json'},
               method: 'DELETE',
@@ -165,7 +163,7 @@ export default server => {
   - modifications
     - crop (image)
       - at aspect ratio
-      - at size 
+      - at size
       - at subject
     - resize
 - get random image
