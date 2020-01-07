@@ -99,7 +99,7 @@ export default server => {
           });
 
           return {
-            path: `${process.env.MEDIA_URL}/${filename}`,
+            path: `http://media:24042/${filename}`,
             filename
           };
         } catch (err) {

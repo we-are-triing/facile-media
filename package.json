@@ -1,6 +1,6 @@
 {
   "name": "facile-media",
-  "version": "1.0.0-alpha.12",
+  "version": "1.0.0-alpha.15",
   "description": "Media hub for facile studio",
   "main": "server/index.js",
   "repository": {
@@ -19,8 +19,8 @@
   },
   "scripts": {
     "start": "node --experimental-modules server/index.js",
-    "dev": "CMS_URL=http://localhost:24040 MEDIA_URL=http://localhost:24042 NODE_ENV=dev nodemon --experimental-modules server/index.js",
-    "local": "CMS_URL=http://localhost:24040 MEDIA_URL=http://localhost:24042 NODE_ENV=dev nodemon --inspect=0.0.0.0:24052 --experimental-modules server/index.js"
+    "dev": "CMS_URL=http://localhost:8080 NODE_ENV=dev nodemon --experimental-modules server/index.js",
+    "local": "CMS_URL=http://localhost:24040 NODE_ENV=dev nodemon --inspect=0.0.0.0:24052 --experimental-modules server/index.js"
   },
   "dependencies": {
     "@hapi/boom": "^7.4.2",
