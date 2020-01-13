@@ -4,6 +4,7 @@ import {join} from 'path';
 import fetch from 'node-fetch';
 import boom from '@hapi/boom';
 import random from './utils/random.js';
+import {writeFile, readFile} from './utils/fileio.js';
 
 const nameReg = /[a-zA-Z0-9 _\-]+/;
 
@@ -28,28 +29,20 @@ const filenameValidation = {
   filename: nameValidation
 };
 
-const dataDomain = `http://api:24041`;
-
 const getExt = type => {
   switch (type) {
     case `image/jpeg`:
       return `jpg`;
-      break;
     case `image/png`:
       return `png`;
-      break;
     case `image/gif`:
       return `gif`;
-      break;
     case `image/webp`:
       return `webp`;
-      break;
     case `image/svg+xml`:
       return `xml`;
-      break;
     case `video/mp4`:
       return `mp4`;
-      break;
     default:
       return `unknown`;
   }
@@ -59,10 +52,20 @@ export default server => {
   server.route([
     {
       method: `GET`,
-      path: `/{param*}`,
-      handler: {
-        directory: {
-          path: '/facile/media'
+      path: `/{filename}`,
+      // options: {
+      //   validate: {
+      //     payload: nameValidation
+      //   }
+      // },
+      handler: async (req, h) => {
+        try {
+          const {filename} = req.params;
+          const {media, type} = await readFile({filename});
+          return h.response(media).type(type);
+        } catch (err) {
+          console.error(``, err);
+          return boom.badImplementation(`something done broke`);
         }
       }
     },
@@ -89,17 +92,11 @@ export default server => {
           const sm = media64.split(',')[1];
           const buf = Buffer.from(sm, 'base64');
 
-          await promises.writeFile(join(`/facile/media`, `${filename}`), buf);
-          const body = JSON.stringify({tags, name, filename, meta, master});
-
-          await fetch(`${dataDomain}/media`, {
-            headers: {'Content-Type': 'application/json'},
-            method: 'POST',
-            body
-          });
+          await writeFile({buf, tags, name, filename, meta, master});
 
           return {
-            path: `http://media:24042/${filename}`,
+            // TODO: this needs to be pointed to the dynamic URL.
+            path: `/proxy/static/media/${filename}`,
             filename
           };
         } catch (err) {
