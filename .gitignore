@@ -44,5 +44,6 @@ jspm_packages
 data-node
 media
 
+.env
 
 

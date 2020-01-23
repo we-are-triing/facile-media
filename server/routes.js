@@ -1,10 +1,7 @@
 import joi from '@hapi/joi';
-import {promises} from 'fs';
-import {join} from 'path';
-import fetch from 'node-fetch';
 import boom from '@hapi/boom';
 import random from './utils/random.js';
-import {writeFile, readFile} from './utils/fileio.js';
+import {writeFile, readFile, deleteFile} from './utils/fileio.js';
 
 const nameReg = /[a-zA-Z0-9 _\-]+/;
 
@@ -53,11 +50,6 @@ export default server => {
     {
       method: `GET`,
       path: `/{filename}`,
-      // options: {
-      //   validate: {
-      //     payload: nameValidation
-      //   }
-      // },
       handler: async (req, h) => {
         try {
           const {filename} = req.params;
@@ -95,7 +87,6 @@ export default server => {
           await writeFile({buf, tags, name, filename, meta, master});
 
           return {
-            // TODO: this needs to be pointed to the dynamic URL.
             path: `/proxy/static/media/${filename}`,
             filename
           };
@@ -119,22 +110,9 @@ export default server => {
       handler: async (req, h) => {
         try {
           const {filename, deleteData = true} = req.payload;
-          try {
-            await promises.unlink(join(`/facile/media`, `${filename}`));
-          } catch (err) {
-            console.error(err);
-          }
-
-          if (deleteData) {
-            await fetch(`${dataDomain}/media`, {
-              headers: {'Content-Type': 'application/json'},
-              method: 'DELETE',
-              body: JSON.stringify({filename})
-            });
-          }
-
+          const message = deleteFile({filename, deleteData});
           return {
-            message: `deleted ${filename}`
+            message
           };
         } catch (err) {
           console.error(``, err);
