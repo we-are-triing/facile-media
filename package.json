@@ -35,7 +35,7 @@
     "dotenv": "^8.2.0",
     "hapi-swagger": "^10.0.2",
     "mongodb": "^3.2.7",
-    "node-fetch": "^2.6.0",
+    "node-fetch": "^3.1.1",
     "stiva": "^1.0.1"
   },
   "devDependencies": {
